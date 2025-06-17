@@ -34,6 +34,12 @@ return {
             end,
             { desc = 'Git previous hunk', }
           )
+
+          map('n', '<leader>gc', function()
+              gitsigns.blame_line({ full = true })
+            end,
+            { desc = 'Git show commit', }
+          )
         end,
       }
     end,
