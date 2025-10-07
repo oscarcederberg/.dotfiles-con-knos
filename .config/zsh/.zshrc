@@ -8,7 +8,6 @@ LANG=en_US.utf8
 LANGUAGE=en_US.utf8
 LC_ALL=en_US.utf8
 
-HISTFILE=${ZDOTDIR:-$HOME}/.zhistory
 LESSHISTFILE="$XDG_STATE_HOME"/less/history
 GOPATH=$XDG_DATA_HOME/go
 GIT_CONFIG_GLOBAL=$XDG_CONFIG_HOME/git/config
@@ -17,12 +16,20 @@ RUSTUP_HOME=$XDG_DATA_HOME/rustup
 MPLAYER_HOME=$XDG_CONFIG_HOME/mplayer
 NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 
-NPM_ARTIFACTORY_TOKEN=$(< $XDG_STATE_HOME/.artifactory_token)
-NPM_GITHUB_TOKEN=$(< $XDG_STATE_HOME/.github_token)
-
 PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$GOPATH/bin
 
+HISTFILE=${ZDOTDIR:-$HOME}/.zhistory
+SAVEHIST=9000
+HISTSIZE=9999
+setopt EXTENDED_HISTORY
+setopt HIST_REDUCE_BLANKS
+
 GPG_TTY=$(tty)
+
+if [ -f $ZDOTDIR/.zshrc_axis ]; then
+  source $ZDOTDIR/.zshrc_axis
+fi
+
 set +a
 
 autoload -U compinit; compinit
