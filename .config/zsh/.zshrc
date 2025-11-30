@@ -36,9 +36,18 @@ source $ZDOTDIR/shell-integration.zsh
 PROMPT="%B%F{cyan}%n%f@%F{yellow}%m%f %F{green}%2~%f >%b "
 RPROMPT="%B[%F{yellow}%T%f]%b"
 
-alias fd='fdfind'
-alias ls='eza'
-alias vim="nvim"
+if command -v fdfind &>/dev/null
+then
+  alias fd='fdfind'
+fi
+if command -v eza &>/dev/null
+then
+  alias ls='eza'
+fi
+if command -v nvim &>/dev/null
+then
+  alias vim="nvim"
+fi
 alias xcam-scan="xcam-scan -n"
 
 if [ -f $ZDOTDIR/.zshrc_axis ]; then
