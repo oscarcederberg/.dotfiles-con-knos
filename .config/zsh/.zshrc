@@ -26,10 +26,6 @@ setopt HIST_REDUCE_BLANKS
 
 GPG_TTY=$(tty)
 
-if [ -f $ZDOTDIR/.zshrc_axis ]; then
-  source $ZDOTDIR/.zshrc_axis
-fi
-
 set +a
 
 autoload -U compinit; compinit
@@ -37,7 +33,7 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 source $ZDOTDIR/shell-integration.zsh
 
-PROMPT="%B%F{cyan}%n%f@%F{yellow}axis%f %F{green}%2~%f >%b "
+PROMPT="%B%F{cyan}%n%f@%F{yellow}%m%f %F{green}%2~%f >%b "
 RPROMPT="%B[%F{yellow}%T%f]%b"
 
 alias fd='fdfind'
@@ -45,3 +41,6 @@ alias ls='eza'
 alias vim="nvim"
 alias xcam-scan="xcam-scan -n"
 
+if [ -f $ZDOTDIR/.zshrc_axis ]; then
+  source $ZDOTDIR/.zshrc_axis
+fi
