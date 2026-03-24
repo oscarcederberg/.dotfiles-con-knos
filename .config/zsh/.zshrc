@@ -48,7 +48,6 @@ if command -v nvim &>/dev/null
 then
   alias vim="nvim"
 fi
-alias xcam-scan="xcam-scan -n"
 
 if [ -f $ZDOTDIR/.zshrc_axis ]; then
   source $ZDOTDIR/.zshrc_axis
