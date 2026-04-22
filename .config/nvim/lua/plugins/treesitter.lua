@@ -1,41 +1,43 @@
 return {
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = function()
-        require("nvim-treesitter.install").update({ with_sync = true })()
-    end,
-    config = function ()
-      local configs = require("nvim-treesitter.configs")
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter").install({
+        "asm",
+        "c",
+        "csv",
+        "dockerfile",
+        "go",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "make",
+        "markdown",
+        "markdown_inline",
+        "meson",
+        "query",
+        "regex",
+        "rust",
+        "sql",
+        "typescript",
+        "vim",
+        "vimdoc",
+      })
 
-      configs.setup({
-          ensure_installed = {
-            "asm",
-            "c",
-            "csv",
-            "dockerfile",
-            "go",
-            "html",
-            "javascript",
-            "json",
-            "lua",
-            "make",
-            "markdown",
-            "meson",
-            "query",
-            "regex",
-            "rust",
-            "sql",
-            "typescript",
-            "vim",
-            "vimdoc",
-          },
-          sync_install = false,
-          highlight = { enable = true },
-          indent = { enable = false },
-        })
+      -- Enable higlighting
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          if vim.treesitter.get_parser(0, nil, { error = false }) then
+            vim.treesitter.start()
+          end
+        end,
+      })
     end,
   },
   {
-    "nvim-treesitter/nvim-treesitter-context",
+    'nvim-treesitter/nvim-treesitter-context',
   },
 }

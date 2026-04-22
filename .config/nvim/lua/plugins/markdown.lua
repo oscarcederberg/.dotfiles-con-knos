@@ -1,5 +1,11 @@
 return {
-  'ellisonleao/glow.nvim',
-  config = true,
-  cmd = 'Glow',
+  'MeanderingProgrammer/render-markdown.nvim',
+  ft = { 'markdown' },
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter',
+    'echasnovski/mini.icons',
+  },
+  opts = {
+    completions = { lsp = { enabled = true } },
+  },
 }

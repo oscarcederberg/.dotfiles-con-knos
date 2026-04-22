@@ -40,6 +40,23 @@ return {
             end,
             { desc = 'Git show commit', }
           )
+
+          -- Toggle between showing unstaged changes vs latest commit's changes
+          local showing_last_commit = false
+          map('n', '<leader>gd',
+            function()
+              if showing_last_commit then
+                gitsigns.change_base(nil, true)
+                showing_last_commit = false
+                vim.notify('Gitsigns: showing unstaged changes', vim.log.levels.INFO)
+              else
+                gitsigns.change_base('HEAD~1', true)
+                showing_last_commit = true
+                vim.notify('Gitsigns: showing latest commit changes', vim.log.levels.INFO)
+              end
+            end,
+            { desc = 'Git diff toggle (unstaged / latest commit)', }
+          )
         end,
       }
     end,

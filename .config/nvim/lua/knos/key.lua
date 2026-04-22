@@ -1,2 +1,2 @@
-vim.keymap.set("n", "]g", vim.diagnostic.goto_next)
-vim.keymap.set("n", "[g", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]g", function() vim.diagnostic.jump({ count = 1, float = true }) end)
+vim.keymap.set("n", "[g", function() vim.diagnostic.jump({ count = -1, float = true }) end)

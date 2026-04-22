@@ -1,6 +1,4 @@
 return {
-  {
-    "lukoshkin/highlight-whitespace",
-    config=true,
-  },
+  'lukoshkin/highlight-whitespace',
+  config = true,
 }
