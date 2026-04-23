@@ -9,12 +9,12 @@ function module.apply(config)
   config.keys = {
     {
       key = 'c',
-      mods = 'ALT',
+      mods = 'SHIFT|CTRL',
       action = action.CopyTo 'ClipboardAndPrimarySelection'
     },
     {
       key = 'v',
-      mods = 'ALT',
+      mods = 'SHIFT|CTRL',
       action = action.PasteFrom 'Clipboard'
     },
     {

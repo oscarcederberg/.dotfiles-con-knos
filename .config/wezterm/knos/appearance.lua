@@ -1,12 +1,16 @@
 local wezterm = require('wezterm')
 local module = {}
 
-local asset_home = os.getenv('HOME') .. '/.config/wezterm/assets/'
+local data_home = os.getenv('HOME') .. '/.local/share/wezterm'
+local assets_home = data_home .. '/assets/'
+local fonts_home = data_home .. '/fonts/'
 
 function module.apply(config)
   config.color_scheme = 'Gruvbox Dark (Gogh)'
+  config.font_dirs = { fonts_home }
+  config.font_locator = 'ConfigDirsOnly'
   config.font = wezterm.font_with_fallback({
-    'Comic Mono',
+    'Fantasque Sans Mono',
     'Noto Sans Mono',
     'Noto Color Emoji',
   })
@@ -46,7 +50,7 @@ function module.apply(config)
   config.background = {
     {
       source = {
-        File = asset_home .. 'background.png'
+        File = assets_home .. 'background.png'
       },
       repeat_x = 'NoRepeat',
       repeat_y = 'NoRepeat',
@@ -57,7 +61,7 @@ function module.apply(config)
     {
       source = {
         File = {
-          path = asset_home .. 'subin.gif',
+          path = assets_home .. 'subin.gif',
           speed = 1.2,
         },
       },
