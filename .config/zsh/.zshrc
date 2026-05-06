@@ -1,3 +1,9 @@
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zmodload zsh/zprof
+fi
+
+# Definitions
+
 _xdg_cache="${XDG_CACHE_HOME:-$HOME/.cache}"
 _xdg_config="${XDG_CONFIG_HOME:-$HOME/.config}"
 _xdg_data="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -13,38 +19,33 @@ _alias_if_exists() {
   fi
 }
 
-_create_dir_if_not_exists() {
+_ensure_dir() {
   [[ $# -eq 1 ]] || return 1
   local directory="$1"
   [[ -d "$directory" ]] || mkdir -p "$directory"
 }
 
-_create_dir_if_not_exists "$_xdg_state/less"
-_create_dir_if_not_exists "$_xdg_cache/zsh"
-_create_dir_if_not_exists "$_xdg_state/zsh"
+_export_path() {
+  [[ $# -eq 2 ]] || return 1
+  local var_name="$1"
+  local file_path="$2"
+
+  local dir="${file_path:h}"
+  _ensure_dir "$dir"
+
+  export "$var_name=$file_path"
+}
+
+# Configuration
 
 export LANG=en_US.UTF-8
-
-export LESSHISTFILE="$_xdg_state/less/history"
-export GOPATH="$_xdg_data/go"
-export GIT_CONFIG_GLOBAL="$_xdg_config/git/config"
-export CARGO_HOME="$_xdg_data/cargo"
-export RUSTUP_HOME="$_xdg_data/rustup"
-export MPLAYER_HOME="$_xdg_config/mplayer"
-export NPM_CONFIG_USERCONFIG="$_xdg_config/npm/npmrc"
-
-if [[ -o interactive ]]; then
-  export GPG_TTY=$(tty)
-fi
 
 typeset -U path
 path+=(
   "$HOME/.local/bin"
-  "$CARGO_HOME/bin"
-  "$GOPATH/bin"
 )
 
-HISTFILE="$_xdg_state/zsh/zhistory"
+_export_path HISTFILE "$_xdg_state/zsh/zhistory"
 SAVEHIST=100000
 HISTSIZE=100000
 setopt EXTENDED_HISTORY
@@ -55,22 +56,30 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 
+_export_path ZSH_COMPDUMP "$_xdg_cache/zsh/zcompdump"
 autoload -U compinit
-compinit -d "$_xdg_cache/zsh/zcompdump"
+compinit -d "$ZSH_COMPDUMP"
+
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-source "$ZDOTDIR/shell-integration.zsh"
 
 PROMPT="%B%F{cyan}%n%f@%F{yellow}%m%f %F{green}%2~%f $%b "
 RPROMPT="%B[%F{yellow}%T%f]%b"
 
-_alias_if_exists fd fdfind
-_alias_if_exists ls eza
-_alias_if_exists vim nvim
+alias zsh_zprof="time env -u ZDOTDIR -i ZSH_DEBUGRC=1 zsh -i -c exit"
+alias zsh_trace='env -u ZDOTDIR zsh -xlic exit 2>&1'
 
-for file in "$ZDOTDIR"/.zshrc.d/*.zsh(.N); do
+# Source
+
+for file in "$ZDOTDIR"/sources/**/*.zsh(.N); do
   source "$file" || echo "Failed to source $file"
 done
 
-unfunction _alias_if_exists _create_dir_if_not_exists
+# Cleanup
+
+unfunction _alias_if_exists _ensure_dir _export_path
 unset _xdg_cache _xdg_config _xdg_data _xdg_state
+
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zprof
+fi

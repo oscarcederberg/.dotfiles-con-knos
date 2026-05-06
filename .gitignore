@@ -1,3 +1,4 @@
-.config/zsh/.zshrc.d/
+.config/zsh/sources/90-local/*
+!.config/zsh/sources/90-local/.gitkeep
 
 .local/share/wezterm/plugins/
