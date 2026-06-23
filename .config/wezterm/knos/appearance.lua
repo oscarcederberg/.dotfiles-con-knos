@@ -12,6 +12,11 @@ function module.apply(config)
   config.font = wezterm.font_with_fallback({
     'Fantasque Sans Mono',
     'Noto Sans Mono',
+    'Noto Sans Mono CJK TC',
+    'Noto Sans Mono CJK SC',
+    'Noto Sans Mono CJK KR',
+    'Noto Sans Mono CJK HK',
+    'Noto Sans Mono CJK JP',
     'Noto Color Emoji',
   })
 
