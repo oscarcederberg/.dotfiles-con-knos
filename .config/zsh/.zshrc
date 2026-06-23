@@ -8,6 +8,7 @@ _xdg_cache="${XDG_CACHE_HOME:-$HOME/.cache}"
 _xdg_config="${XDG_CONFIG_HOME:-$HOME/.config}"
 _xdg_data="${XDG_DATA_HOME:-$HOME/.local/share}"
 _xdg_state="${XDG_STATE_HOME:-$HOME/.local/state}"
+_xdg_bin="${XDG_BIN_HOME:-$HOME/.local/bin}"
 
 _alias_if_exists() {
   [[ $# -eq 2 ]] || return 1
@@ -42,7 +43,7 @@ export LANG=en_US.UTF-8
 
 typeset -U path
 path+=(
-  "$HOME/.local/bin"
+  $_xdg_bin
 )
 
 _export_path HISTFILE "$_xdg_state/zsh/zhistory"
