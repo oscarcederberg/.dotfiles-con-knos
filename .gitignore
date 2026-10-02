@@ -1,4 +1,7 @@
 .config/zsh/sources/90-local/*
 !.config/zsh/sources/90-local/.gitkeep
 
+.config/sway/local/*
+!.config/sway/local/.gitkeep
+
 .local/share/wezterm/plugins/

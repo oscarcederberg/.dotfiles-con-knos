@@ -206,3 +206,4 @@ bar {
 }
 
 include /etc/sway/config.d/*
+include ~/.config/sway/local/*
