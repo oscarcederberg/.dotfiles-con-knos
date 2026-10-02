@@ -67,7 +67,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 PROMPT="%B%F{cyan}%n%f@%F{yellow}%m%f %F{green}%2~%f $%b "
-RPROMPT="%B[%F{yellow}%T%f]%b"
 
 alias zsh_zprof="time env -u ZDOTDIR -i ZSH_DEBUGRC=1 zsh -i -c exit"
 alias zsh_trace='env -u ZDOTDIR zsh -xlic exit 2>&1'
