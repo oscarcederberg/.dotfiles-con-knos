@@ -67,6 +67,13 @@ return {
       completion = {
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
       },
+      enabled = function()
+        if vim.g.blink_cmp_enabled == false then
+          return false
+        end
+
+        return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false
+      end,
       fuzzy = {
         implementation = 'prefer_rust_with_warning',
         sorts = {
@@ -84,6 +91,20 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require("blink.cmp").setup(opts)
+
+      vim.keymap.set("n", "<leader>ct", function()
+        if vim.g.blink_cmp_enabled == false then
+          vim.g.blink_cmp_enabled = true
+          print("blink.cmp Enabled")
+        else
+          vim.g.blink_cmp_enabled = false
+          require("blink.cmp").hide()
+          print("blink.cmp Disabled")
+        end
+      end, { desc = "Toggle blink.cmp" })
+    end,
   },
   {
     -- Auto-install LSP servers via Mason (enabling is handled explicitly below)
