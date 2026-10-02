@@ -13,6 +13,8 @@ export PASSWORD_STORE_DIR="$_xdg_data/pass"
 export RUSTUP_HOME="$_xdg_data/rustup"
 export WGETRC="$_xdg_config/wget/wgetrc"
 
+export BAT_STYLE="plain"
+
 typeset -U path
 path+=(
   "$CARGO_HOME/bin"
@@ -22,3 +24,5 @@ path+=(
 _alias_if_exists fd fdfind
 _alias_if_exists ls eza
 _alias_if_exists vim nvim
+_alias_if_exists bat batcat
+_alias_if_exists bat "bat --paging=never"

@@ -12,12 +12,13 @@ _xdg_bin="${XDG_BIN_HOME:-$HOME/.local/bin}"
 
 _alias_if_exists() {
   [[ $# -eq 2 ]] || return 1
-  local alias_name="$1"
-  local target="$2"
 
-  if command -v "$target" >/dev/null; then
-    alias "$alias_name=$target"
-  fi
+  local name="$1"
+  local command="$2"
+
+  command -v "${command%% *}" >/dev/null 2>&1 || return 0
+
+  alias "$name=$command"
 }
 
 _ensure_dir() {
