@@ -59,6 +59,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 
 _export_path ZSH_COMPDUMP "$_xdg_cache/zsh/zcompdump"
+typeset -gaU fpath=($fpath "$_xdg_data/zsh/completions")
 autoload -U compinit
 compinit -d "$ZSH_COMPDUMP"
 
